@@ -22,7 +22,7 @@ texts = text_splitter.split_documents(documents)
 # Create a Chroma index from the chunks and initialize a RetrievalQA object
 docsearch = Chroma.from_documents(texts, embeddings)
 qa = RetrievalQA.from_chain_type(
-    llm = OpenAI(),
+    llm = OpenAI(temperature=0),
     chain_type = "stuff",
     retriever = docsearch.as_retriever()
 )
@@ -33,5 +33,5 @@ def query(q):
     print("Answer: ", qa.run(q))
 
 # Run some example queries
-query("What is the meaning of life?")
+query("What is the command to list all files in a directory on Ubuntu?")
 query("What are chinas plans with renewable energy?")
